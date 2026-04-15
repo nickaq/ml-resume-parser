@@ -34,3 +34,4 @@ pgdata/
 
 # Logs
 *.log
+.qwen
