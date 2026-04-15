@@ -1,0 +1,30 @@
+# ── Application ──────────────────────────────────────────────────────
+pydantic>=2.0
+pydantic-settings>=2.0
+email-validator>=2.0          # Required by Pydantic EmailStr
+
+# ── Database ─────────────────────────────────────────────────────────
+sqlalchemy>=2.0,<3.0
+aiosqlite>=0.20.0             # Async SQLite driver (local dev)
+asyncpg>=0.29.0               # Async PostgreSQL driver (production)
+psycopg2-binary>=2.9.9        # Sync driver for Alembic migrations
+alembic>=1.13.0
+
+# ── Auth ─────────────────────────────────────────────────────────────
+PyJWT>=2.8.0
+passlib[bcrypt]>=1.7.4
+
+# ── FastAPI ──────────────────────────────────────────────────────────
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+
+# ── Text extraction ──────────────────────────────────────────────────
+pdfplumber>=0.10.0
+python-docx>=1.1.0
+
+# ── AI / Matching v2 ────────────────────────────────────────────────
+scikit-learn>=1.4.0              # TF-IDF + cosine similarity
+sentence-transformers>=2.2,<3    # Embedding-based semantic matching
+transformers>=4.30,<5            # Hugging Face (compatible with ST 2.x)
+torch>=2.0,<2.5                  # Required by sentence-transformers
