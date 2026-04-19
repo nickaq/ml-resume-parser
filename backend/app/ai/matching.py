@@ -24,6 +24,7 @@ from dataclasses import dataclass, field
 
 from app.ai.extraction import detect_skills
 from app.ai.preprocessing import preprocess
+from app.ai.skills_db import get_skill_weight
 
 
 @dataclass
@@ -75,14 +76,16 @@ def match_resume_to_vacancy(
         vacancy_text += f" {vacancy_requirements}"
     vacancy_skills = detect_skills(vacancy_text)
 
-    # ── 2. Skill overlap (Jaccard) ──────────────────────────────────
+    # ── 2. Weighted Skill overlap (Jaccard) ─────────────────────────
     matched = resume_skills & vacancy_skills
     union = resume_skills | vacancy_skills
     # Skills that the vacancy needs but the resume doesn't have
     missing = vacancy_skills - resume_skills
 
     if union:
-        skill_score = len(matched) / len(union)
+        weighted_matched = sum(get_skill_weight(s) for s in matched)
+        weighted_union = sum(get_skill_weight(s) for s in union)
+        skill_score = weighted_matched / weighted_union
     else:
         # No skills detected on either side — score from text only
         skill_score = 0.0

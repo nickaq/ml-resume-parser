@@ -100,10 +100,58 @@ export default function VacancyDetailPage() {
 
         {vacancy.requirements && (
           <div className="mt-6 border-t pt-6">
-            <h3 className="mb-2 font-semibold">Requirements</h3>
+            <h3 className="mb-2 font-semibold">Description Requirements</h3>
             <p className="whitespace-pre-line text-sm text-gray-700">
               {vacancy.requirements}
             </p>
+          </div>
+        )}
+
+        {(vacancy.required_skills?.length || vacancy.nice_to_have_skills?.length || vacancy.industry_domain || vacancy.work_format) && (
+          <div className="mt-6 border-t pt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="mb-2 font-semibold text-gray-900">Must Have Skills</h3>
+              <div className="flex flex-wrap gap-2">
+                {vacancy.required_skills?.map((s, i) => (
+                  <span key={i} className="rounded-md bg-red-50 text-red-700 border border-red-100 px-2.5 py-1 text-xs font-medium">
+                    {s}
+                  </span>
+                )) || <span className="text-sm text-gray-500">Not specified</span>}
+              </div>
+              
+              <h3 className="mb-2 mt-4 font-semibold text-gray-900">Nice to Have</h3>
+              <div className="flex flex-wrap gap-2">
+                {vacancy.nice_to_have_skills?.map((s, i) => (
+                  <span key={i} className="rounded-md bg-green-50 text-green-700 border border-green-100 px-2.5 py-1 text-xs font-medium">
+                    {s}
+                  </span>
+                )) || <span className="text-sm text-gray-500">None</span>}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="mb-2 font-semibold text-gray-900">Role Context</h3>
+              <dl className="space-y-2 text-sm text-gray-600">
+                {vacancy.industry_domain && (
+                  <div className="flex gap-2">
+                    <dt className="font-medium w-24">Domain:</dt>
+                    <dd>{vacancy.industry_domain}</dd>
+                  </div>
+                )}
+                {vacancy.work_format && (
+                  <div className="flex gap-2">
+                    <dt className="font-medium w-24">Format:</dt>
+                    <dd>{vacancy.work_format}</dd>
+                  </div>
+                )}
+                {vacancy.human_languages?.length ? (
+                  <div className="flex gap-2">
+                    <dt className="font-medium w-24">Languages:</dt>
+                    <dd>{vacancy.human_languages.join(", ")}</dd>
+                  </div>
+                ) : null}
+              </dl>
+            </div>
           </div>
         )}
 

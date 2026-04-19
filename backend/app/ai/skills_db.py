@@ -167,3 +167,43 @@ def get_all_skill_aliases() -> dict[str, str]:
         for alias in aliases:
             alias_map[alias] = canonical
     return alias_map
+
+
+# ── Weighted Skill Priority ─────────────────────────────────────────
+
+CORE_SKILLS = {
+    # Programming languages
+    "Python", "JavaScript", "TypeScript", "Java", "C++", "C#", "Go", "Rust", 
+    "Ruby", "PHP", "Swift", "Kotlin", "Scala", "R", "SQL", "Shell", "C",
+    # Web frameworks & libraries
+    "React", "Vue.js", "Angular", "Next.js", "Django", "Flask", "FastAPI", 
+    "Express", "Spring Boot", "Rails", "Laravel", "Node.js", "Svelte", "ASP.NET", 
+    "Blazor", "Hibernate", "RabbitMQ", "Kafka", "gRPC", "WebSocket", "Sidekiq", 
+    "Hotwire", "SignalR",
+    # Data & ML
+    "Machine Learning", "Deep Learning", "NLP", "TensorFlow", "PyTorch", 
+    "scikit-learn", "Pandas", "NumPy", "Data Analysis", "Data Visualization", 
+    "Matplotlib", "Jupyter", "Spark", "Airflow", "dbt", "Snowflake", "Tableau", 
+    "LangChain", "MLflow", "Transformers",
+    # Mobile
+    "React Native", "Flutter", "SwiftUI", "Jetpack Compose", "Firebase", 
+    "Redux", "Stripe"
+}
+
+SOFT_SKILLS = {
+    # General soft skills & domain knowledge
+    "Communication", "Teamwork", "Problem Solving", "Project Management", "Leadership"
+}
+
+def get_skill_weight(canonical_skill: str) -> float:
+    """
+    Returns the weight of a skill based on its category.
+    Core Tech (Languages, Frameworks, ML): 2.0
+    Secondary Tech (DBs, Cloud, Tools): 1.0 (default)
+    Soft Skills: 0.5
+    """
+    if canonical_skill in CORE_SKILLS:
+        return 2.0
+    elif canonical_skill in SOFT_SKILLS:
+        return 0.5
+    return 1.0

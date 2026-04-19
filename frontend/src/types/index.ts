@@ -30,6 +30,13 @@ export interface Vacancy {
   salary_min: number | null;
   salary_max: number | null;
   url: string | null;
+  required_skills: string[] | null;
+  nice_to_have_skills: string[] | null;
+  industry_domain: string | null;
+  tools_stack: string[] | null;
+  languages_stack: string[] | null;
+  human_languages: string[] | null;
+  work_format: string | null;
   is_active: boolean;
   created_at: string;
   updated_at: string;

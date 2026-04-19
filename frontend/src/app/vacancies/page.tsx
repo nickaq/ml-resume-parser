@@ -108,6 +108,31 @@ export default function VacanciesPage() {
                 )}
               </div>
             </div>
+            
+            {/* Extended Tags */}
+            <div className="mt-3 flex flex-wrap gap-2">
+              {v.work_format && (
+                <span className="rounded-full bg-purple-50 px-2.5 py-0.5 text-xs font-medium text-purple-700 border border-purple-200">
+                  {v.work_format}
+                </span>
+              )}
+              {v.industry_domain && (
+                <span className="rounded-full bg-indigo-50 px-2.5 py-0.5 text-xs font-medium text-indigo-700 border border-indigo-200">
+                  {v.industry_domain}
+                </span>
+              )}
+              {v.required_skills && v.required_skills.slice(0, 4).map((skill, i) => (
+                <span key={i} className="rounded-md bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">
+                  {skill}
+                </span>
+              ))}
+              {v.required_skills && v.required_skills.length > 4 && (
+                <span className="rounded-md bg-gray-50 px-2 py-0.5 text-xs font-medium text-gray-500">
+                  +{v.required_skills.length - 4} more
+                </span>
+              )}
+            </div>
+
             <p className="mt-3 line-clamp-2 text-sm text-gray-600">
               {v.description}
             </p>
